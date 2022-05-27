@@ -10,6 +10,7 @@ function App() { //hooks can only be used within in 'function' components, not c
 
   /* initialize the state of the hooks */
   // use the setState hook to manage a single component at a time: todos and setTodos
+  // IMPORTANT NOTE: Don't modify useState variables within functions, create a new local var and use the set to apply it when done
   const [todos, setTodos] = useState([]) // one function to init the todo list (to an empty array), another to set the list cotent.
   const todoNameRef = useRef() /* another hook that tracks a single mutable value */
 
@@ -26,6 +27,16 @@ function App() { //hooks can only be used within in 'function' components, not c
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos))
   }, [todos])
+
+  //separate function to handle clicking the checkbox. it's big because 
+  function toggleTodo(id) {
+    const newTodos = [...todos] // see IMPORTANT NOTE for useState
+    const todo = newTodos.find(todo => todo.id === id) // find the todo with the matching id
+    todo.complete = !todo.complete // clever way to toggle a boolean, regardless of current value
+    // the following setTodos(newTodos) only works because of memory gymnastics: const todo stores an address to the object stored in the newTodos array,
+    // so modifying it with todo.complete then storing it with newTodos works here.
+    setTodos(newTodos)
+  }
 
   // this function triggers when the 'add todo' button is clicked
   // it takes a event (e) as an argument.
@@ -45,7 +56,7 @@ function App() { //hooks can only be used within in 'function' components, not c
   // although at the end of the function, this return value draws the app interface.
   return (
     <> {/* react comments use a different syntax */}
-      <TodoList todos={todos}/> {/* this calls the TodoList function with todos as an argument */}
+      <TodoList todos={todos} toggleTodo={toggleTodo}/> {/* this calls the TodoList function with todos as an argument */}
       <input ref={todoNameRef} type="text" /> {/* this input field is configured to treat the content of the field as a variable called 'todoNameRef' */}
       <button onClick={handleAddTodo}>Add Todo</button> {/* the button triggers the 'handleAddTodo' function when clicked */}
       <button>Clear Complete</button>
