@@ -66,8 +66,8 @@ function App() { //hooks can only be used within in 'function' components, not c
       <TodoList todos={todos} toggleTodo={toggleTodo}/> {/* this calls the TodoList function with todos and toggleTodo as arguments */}
       <input ref={todoNameRef} type="text" /> {/* this input field is configured to treat the content of the field as a variable called 'todoNameRef' */}
       <button onClick={handleAddTodo}>Add Todo</button> {/* the button triggers the 'handleAddTodo' function when clicked */}
-      <button onClick={handleClearTodos}>Clear Complete</button>
-      <div>{todos.filter(todo => !todo.complete).length} left to do</div>
+      <button onClick={handleClearTodos}>Clear Complete</button> {/*  */}
+      <div>{todos.filter(todo => !todo.complete).length} left to do</div> {/*  */}
     </>
   )
 }
