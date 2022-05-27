@@ -8,8 +8,8 @@ import React from 'react'
 import Todo from './Todo'
 
 /*
-This function is called when the App function returns this value: <TodoList todos={todos}/>
-todos uses the useState() hook, and is just an array of objects. Specifically, a uuid, string (name), and boolean (checked/unchecked)
+This function is called when the App function returns this value: <TodoList todos={todos} toggleTodo={toggleTodo}/>
+todos uses the useState() hook, and is just an array of objects. The objects consist of a uuid, string (name), and boolean (checked/unchecked)
 */
 
 export default function TodoList({ todos, toggleTodo }) {
